@@ -19,7 +19,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'basic_django_channels.settings'
 
 application=ProtocolTypeRouter({
 	'http':get_asgi_application(),
-	'websocket':AuthMiddlewareStack(URLRouter(ws_urlpatterns))
+	'websocket':AuthMiddlewareStack(URLRouter(ws_urlpatterns)) # se le agregara la especie de url proveniente de routing.py
 })
 
 
