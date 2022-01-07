@@ -31,5 +31,38 @@ class Prueba(APIView):
 		)
 		return HttpResponse(JsonResponse({"success":"true"}),content_type="application/json", status=200)
 
+	def put(self,request,format=None):
 
+		if "pk" in request.data:
+			pk=request.data['pk']
+		else:
+			pk=1
+
+		if "email" in request.data:
+			email=request.data['email']
+		else:
+			email=""
+
+
+		person=Person.objects.filter(id=pk)
+
+		if len(person)>0:
+			person.update(email=email)
+			return HttpResponse(JsonResponse({"success":"true"}),content_type="application/json", status=200)
+
+		else:
+			return HttpResponse(JsonResponse({"success":"false"}),content_type="application/json", status=200)
+
+	def delete(self,request,format=None):
+		if "pk" in request.data:
+			pk=request.data['pk']
+		else:
+			pk=""
+		person=Person.objects.filter(id=pk)
+		if len(person)>0:
+			person.delete()
+			return HttpResponse(JsonResponse({"success":"true"}),content_type="application/json", status=200)
+
+		else:
+			return HttpResponse(JsonResponse({"success":"false"}),content_type="application/json", status=200)
 # class Guardar(APIView):
